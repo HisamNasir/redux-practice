@@ -260,13 +260,15 @@ const Register = () => {
             await addDoc(purchaseHistoryRef, {
               purchaseDate: Timestamp.now(),
               productId:'',
+              quantity:'',
               productPrice:'', // Replace with the actual price
-              ratings:'', // Replace with the actual ratings
+              totalPrice:'', // Replace with the actual ratings
               userReview: {
                 stars:'', // Empty initially, user can input later
                 text:'', // Empty initially, user can input later
               },
             });
+
 
             router.push("/"); // Use router.push("/") to navigate to the home page
           } catch (err) {

@@ -8,7 +8,7 @@ const DarkModButton = () => {
   const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
-    <button  className="w-full gap-2   border-opacity-20   transition-all duration-100  justify-center p-2 flex bg-black bg-opacity-10 hover:bg-opacity-20  text-sm items-center md:text-sm rounded-lg"
+    <button  className="w-full gap-2  border-opacity-20   transition-all duration-500  justify-center p-2 flex bg-black bg-opacity-10 hover:bg-opacity-20  text-sm items-center md:text-sm rounded-lg"
       onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
 
     >

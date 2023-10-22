@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 // Import the counterSlice reducer that you've created earlier.
 import counterSlice from "./features/counterSlice";
+import productSlice from "./features/productSlice";
 
 // Configure your Redux store.
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
     counter: counterSlice,
     // You can add more slices and reducers here if needed.
     // For example:
+    product: productSlice,
     // someFeature: someFeatureReducer,
   },
 });

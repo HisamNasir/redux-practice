@@ -1,46 +1,53 @@
-// Import the action creators 'incremented' and 'decremented' from the 'counterSlice'.
-import Layout from "@/components/Layout";
-import { decremented, incremented } from "@/src/store/features/counterSlice";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectProducts, setProducts } from '@/src/store/features/productSlice';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/firebase';
 
-// Import the 'Head' component from 'next/head' to set document head metadata.
-import Head from "next/head";
-
-// Import 'useDispatch' and 'useSelector' hooks from 'react-redux' to interact with the Redux store.
-import { useDispatch, useSelector } from "react-redux";
-
-// Define your main application component.
-export default function HomePage() {
-  // Use 'useSelector' to select the 'counter' state from the Redux store.
-  const { value } = useSelector((state) => state.counter);
-
-  // Use 'useDispatch' to get access to the Redux store's 'dispatch' function.
+const HomePage = () => {
+  const products = useSelector(selectProducts);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    // Fetch products from Firestore
+    const fetchProducts = async () => {
+      try {
+        const productRef = collection(db, 'PublishedProducts');
+        const querySnapshot = await getDocs(productRef);
+
+        const productsData = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          productsData.push({
+            id: doc.id,
+            ...data,
+          });
+        });
+
+        dispatch(setProducts(productsData));
+      } catch (error) {
+        console.error('Error fetching products: ', error);
+      }
+    };
+
+    fetchProducts();
+  }, [dispatch]);
+
   return (
-    <Layout>
-
-        {/* Display the current counter value */}
-        <h1 className="text-xl lg:text-6xl text-center my-10 uppercase tracking-[2px]">
-          Hello {value}
-        </h1>
-        <div className="flex justify-center gap-x-8 items-center">
-          {/* Button to increment the counter value, also using bg silver on this button which is declared into tailwind config */}
-          
-          <button
-            onClick={() => dispatch(incremented())}
-            className="bg-silver text-white px-12 py-2 text-2xl rounded-lg"
-          >
-            +
-          </button>
-          {/* Button to decrement the counter value */}
-          <button
-            onClick={() => dispatch(decremented())}
-            className="bg-black text-white px-12 py-2 text-2xl rounded-lg"
-          >
-            -
-          </button>
-        </div>
-
-    </Layout>
+    <div className="bg-gray-100 dark:bg-gray-900 p-6">
+      <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Products</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {products && products.map((product) => (
+          <div key={product.id} className="bg-white dark:bg-gray-700 p-4 shadow-md rounded-lg">
+            <img src={product.image} alt={product.name} className="w-full" />
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{product.name}</h2>
+            <p className="text-gray-600 dark:text-gray-300">Price: ${product.price}</p>
+            <p className="text-gray-600 dark:text-gray-300">Stock Quantity: {product.stockQuantity}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
-}
+};
+
+export default HomePage;
