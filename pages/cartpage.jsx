@@ -1,6 +1,5 @@
 import Layout from '@/components/Layout'
 import React from 'react'
-
 const CartPage = () => {
   return (
     <Layout>
@@ -8,5 +7,4 @@ const CartPage = () => {
     </Layout>
   )
 }
-
 export default CartPage
