@@ -98,15 +98,9 @@ const Settings = () => {
         {/* ////////section 2 */}
         <div className="mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3">
           <div className="mt-4">
-            <h3 className="text-lg font-semibold">Your product</h3>
+            <h3 className="text-lg font-semibold">Your Accoutn</h3>
             <div className="my-4 w-full ">
-              <Link
-              href='/PublishedProduct'
-                
-                className="mt-2 bg-black hover:bg-opacity-40 bg-opacity-20 rounded-md p-2 transition-colors"
-              >
-                Publish your own product
-              </Link>
+              account details
 
             </div>
           </div>

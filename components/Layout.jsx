@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
+import CartFooter from './CartFooter';
 
 const Layout = (props) => {
   return (
@@ -9,9 +10,12 @@ const Layout = (props) => {
 
       </div>
       <div className='flex justify-center'>
-      <div className='h-[calc(100vh-62px)] container p-2 '>
+      <div className='h-[calc(100vh-124x)] container p-2 '>
       {props.children}
       </div>
+      </div>
+      <div className='h-[62px]'>
+        <CartFooter/>
       </div>
     </div>
   );
