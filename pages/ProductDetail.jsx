@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
-
 const ProductDetail = ({ product }) => {
   const dispatch = useDispatch();
-
   const handleAddToCart = () => {
-    dispatch(addToCart(product));
-  };
-
+  dispatch(addToCart(product));
+  const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+  storedCart.push(product);
+  localStorage.setItem('cart', JSON.stringify(storedCart));
+  console.log('Added to cart:', product);
+};
   return (
     <div>
       <img src={product.image} alt={product.title} />

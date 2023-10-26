@@ -10,7 +10,7 @@ const Layout = (props) => {
 
       </div>
       <div className='flex justify-center'>
-      <div className='h-[calc(100vh-124x)] container p-2 '>
+      <div className='h-[calc(100vh-124x)] container p-2 py-4 '>
       {props.children}
       </div>
       </div>
