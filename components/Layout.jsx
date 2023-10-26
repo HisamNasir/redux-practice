@@ -15,7 +15,7 @@ const Layout = (props) => {
       </div>
       </div>
       <div className='h-[62px]'>
-        <CartFooter/>
+        
       </div>
     </div>
   );

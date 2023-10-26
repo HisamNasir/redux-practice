@@ -18,6 +18,7 @@ const Navbar = () => {
   };
 
   const handleSignOut = () => {
+    localStorage.removeItem('cart');
     signOut(auth);
   };
 
