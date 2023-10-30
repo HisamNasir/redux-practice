@@ -2,10 +2,10 @@
 import Layout from '@/components/Layout';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import PaymentPage from './PaymentPage';
-import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "@/src/store/features/cartSlice";
-import CartFooter from "@/components/CartFooter";
+// import PaymentPage from './PaymentPage';
+// import { useSelector, useDispatch } from "react-redux";
+// import { addToCart } from "@/src/store/features/cartSlice";
+// import CartFooter from "@/components/CartFooter";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { getFirestore, doc, collection, addDoc } from "firebase/firestore";
