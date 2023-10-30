@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "@/components/ProductCard";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/src/store/features/cartSlice";
 import Layout from "@/components/Layout";
 import CartFooter from "@/components/CartFooter";
-import ProductSearchBar from "@/components/ProductSearchBar"; // Import the search bar component
-
+import ProductSearchBar from "@/components/ProductSearchBar"; 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
@@ -25,7 +23,6 @@ const HomePage = () => {
     <div>
       <Layout>
         <div className="mb-4">
-
         </div>
         <div className="bg-gray-100 space-y-2 rounded-lg dark:bg-gray-900 p-4">
           <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
