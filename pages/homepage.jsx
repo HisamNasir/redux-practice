@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/src/store/features/cartSlice";
 import Layout from "@/components/Layout";
 import CartFooter from "@/components/CartFooter";
+import ProductCardCover from "@/components/ProductCardCover";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -20,6 +21,10 @@ const HomePage = () => {
   return (
     <div>
       <Layout>
+      <div className="mb-4">
+      <ProductCardCover products={products} />
+
+      </div>
         <div className="bg-gray-100 space-y-2 rounded-lg dark:bg-gray-900 p-4">
           <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
             Products
