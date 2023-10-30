@@ -8,6 +8,7 @@ import { collection, addDoc, query, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import DarkModButton from "./DarkModButton";
 import Link from "next/link";
+import Image from "next/image";
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
@@ -31,7 +32,7 @@ const Navbar = () => {
         </Link>
         <div onClick={toggleDropdown} className="relative flex gap-2 items-center">
           <div>
-            <img className="h-8 w-8 container rounded-full object-cover" src={currentUser.photoURL} alt="" />
+            <Image width={200} height={200} className="h-8 w-8 container rounded-full object-cover" src={currentUser.photoURL} alt="" />
           </div>
           <span>{currentUser.displayName}</span>
           {isDropdownVisible && (

@@ -55,8 +55,6 @@ const handleFileInputChange = (e) => {
               email,
               photoURL: downloadURL,
             });
-
-
             const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
             await addDoc(purchaseHistoryRef, {
               purchaseDate: Timestamp.now(),
@@ -69,8 +67,6 @@ const handleFileInputChange = (e) => {
                 text: '',
               },
             });
-
-
             router.push("/");
           } catch (err) {
             console.error(err);

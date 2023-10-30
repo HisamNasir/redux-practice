@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import Link from "next/link";
-import Layout from "@/components/Layout";
 import DarkModButton from "@/components/DarkModButton";
 
 const Login = () => {
@@ -72,7 +71,7 @@ const Login = () => {
 
         <div>
           <p className="text-slate-500">
-            Don't have an account{" "}
+            {"Don't have an account "}
             <Link href="/register" className="hover:text-black transition-colors delay-75">
               Signup
             </Link>

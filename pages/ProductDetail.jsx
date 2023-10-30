@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
+import Image from "next/image";
 const ProductDetail = ({ product }) => {
   const dispatch = useDispatch();
   const handleAddToCart = () => {
@@ -11,7 +12,7 @@ const ProductDetail = ({ product }) => {
 };
   return (
     <div>
-      <img src={product.image} alt={product.title} />
+      <Image width={200} height={200} src={product.image} alt={product.title} />
       <h1>{product.title}</h1>
       <p>Price: ${product.price}</p>
       <p>Ratings: {product.rating.rate} ({product.rating.count} reviews)</p>

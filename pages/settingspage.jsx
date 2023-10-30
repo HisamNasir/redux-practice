@@ -6,32 +6,24 @@ import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { auth, storage } from "../firebase";
 import Link from "next/link";
-
+import Image from "next/image";
 const Settings = () => {
   const { currentUser } = useContext(AuthContext);
   const [newName, setNewName] = useState(currentUser.displayName);
   const [newProfilePicture, setNewProfilePicture] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const handleUpdateProfile = async () => {
     setLoading(true);
     try {
-      // Update the user's display name
       await updateProfile(auth.currentUser, {
         displayName: newName,
       });
-
-      // Delete the old profile picture from storage
       if (newProfilePicture) {
         const oldImageRef = ref(storage, `${currentUser.uid}`);
         await deleteObject(oldImageRef);
-
-        // Upload the new profile picture and get the download URL
         const newImageRef = ref(storage, currentUser.uid);
         await uploadBytesResumable(newImageRef, newProfilePicture);
         const downloadURL = await getDownloadURL(newImageRef);
-
-        // Update the user's profile picture URL
         await updateProfile(auth.currentUser, {
           photoURL: downloadURL,
         });
@@ -42,13 +34,12 @@ const Settings = () => {
       setLoading(false);
     }
   };
-
   return (
     <Layout>
       <div className="rounded-lg min-w-min space-y-4 bg-gray-100 dark:bg-gray-900 m-2 p-4">
         <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3">
           <div className="text-center">
-            <img
+            <Image width={200} height={200}
               src={currentUser.photoURL}
               alt="Profile Picture"
               className="h-16 w-16 rounded-full mx-auto"
@@ -91,17 +82,14 @@ const Settings = () => {
               >
                 {loading ? "Updating..." : "Update Profile"}
               </button>
-
             </div>
           </div>
         </div>
-        {/* ////////section 2 */}
         <div className="mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3">
           <div className="mt-4">
             <h3 className="text-lg font-semibold">Your Accoutn</h3>
             <div className="my-4 w-full ">
               account details
-
             </div>
           </div>
         </div>

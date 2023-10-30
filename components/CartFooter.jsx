@@ -1,11 +1,9 @@
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import React, { useContext, useState } from "react";
+import { Link } from 'react-router-dom';
 const CartFooter = () => {
   const cartCount = useSelector(state => state.cart.cartItems.length);
   const cartItems = useSelector(state => state.cart.cartItems);
-
-  // Function to calculate the total price
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
   };
@@ -14,9 +12,9 @@ const CartFooter = () => {
       <div className='flex h-full items-center justify-between '>
       <p className='hidden md:flex items-center'>Total Items in cart: <span className=' text-amber-500 text-xl p-2'>{cartCount}</span></p>
       <p>Total Price:<span className=' text-amber-500 text-xl p-2'> ${calculateTotalPrice()}</span></p>
-      <a href="/cartpage" className=" font-semibold  tracking-wide shadow-md shadow-black p-2 flex bg-amber-500  hover:bg-opacity-80  text-sm items-center md:text-sm rounded-lg gap-2">
+      <Link href="/cartpage" className=" font-semibold  tracking-wide shadow-md shadow-black p-2 flex bg-amber-500  hover:bg-opacity-80  text-sm items-center md:text-sm rounded-lg gap-2">
         Checkout
-      </a>
+      </Link>
       </div>
     </div>
   );

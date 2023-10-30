@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "@/src/store/features/cartSlice";
 import CartFooter from "@/components/CartFooter";
 import { useContext } from "react";
-import { AuthContext } from "@/context/AuthContext"; // Import your AuthContext
+import { AuthContext } from "@/context/AuthContext";
 import { getFirestore, doc, collection, addDoc } from "firebase/firestore";
 
 const CartPage = () => {
@@ -21,63 +21,40 @@ const CartPage = () => {
   const { currentUser } = useContext(AuthContext);
 
   const handleDelete = (index) => {
-    // Remove the product at the specified index from the cartItems state and local storage
     const updatedCart = [...cartItems];
     updatedCart.splice(index, 1);
     setCartItems(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
-  // Retrieve locally stored products
   useEffect(() => {
     const locallyStoredCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartItems(locallyStoredCart);
   }, []);
-
   const handleCheckboxChange = (index) => {
-    // Toggle the selected state of the item at the specified index
     const updatedSelectedItems = [...selectedItems];
     updatedSelectedItems[index] = !updatedSelectedItems[index];
     setSelectedItems(updatedSelectedItems);
-
-    // Check if any item is selected to enable/disable "Pay" button
     setIsPayButtonEnabled(updatedSelectedItems.some((selected) => selected));
   };
-
   const handlePay = async () => {
-    // Retrieve the selected product IDs from local storage
     const productsToPay = JSON.parse(localStorage.getItem('selectedForPayment')) || [];
-
-    // Access Firestore
     const firestore = getFirestore();
-
     if (currentUser) {
-      // Access the user's UID (user ID)
       const userId = currentUser.uid;
-
-      // Access the user's document under the "users" collection
       const userDocRef = doc(firestore, "users", userId);
-
-      // Access the "purchaseHistory" subcollection within the user's document
       const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
-
-      // Add each selected product ID to the "purchaseHistory" collection
       for (const product of productsToPay) {
         await addDoc(purchaseHistoryRef, {
           productId: product.id,
-          // Add other information related to the purchase, e.g., purchaseDate, quantity, etc.
         });
       }
-
-      // Implement the payment process as needed
       alert('Payment Done');
     } else {
-      // Handle the case where the user is not authenticated
       alert('User is not authenticated.');
     }
   };
 
   const calculateTotalPrice = () => {
-    // Calculate the total price based on selected items
     const totalPrice = cartItems.reduce(
       (total, item, index) => (selectedItems[index] ? total + item.price : total),
       0
