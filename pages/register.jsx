@@ -7,7 +7,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc, collection, addDoc, Timestamp } from "firebase/firestore";
 import { useRouter } from "next/router";
 import DarkModButton from "@/components/DarkModButton";
-import { FaSpinner } from "react-icons/fa";
+import { FaSpinner, FaUser } from "react-icons/fa";
+import Image from "next/image";
 
 const Register = () => {
   const [err, setErr] = useState(false);
@@ -114,23 +115,31 @@ return (
         <h1 className="text-lg font-bold">Sign Up</h1>
         <div className="space-y-1">
           <div className="text-base">Profile Picture</div>
-          <div>
-            <input
-              required
-              type="file"
-              id="file"
-              name="profilePicture"
-              className="rounded-xl p-2 w-full"
-              onChange={(e) => {
-                const file = e.target.files[0];
-                if (file) {
-                  const imageUrl = URL.createObjectURL(file);
-                  setProfilePicture(file);
-                  setSelectedImageUrl(imageUrl);
-                }
-              }}
-            />
-          </div>
+          <div className="space-y-1">
+  <div className="flex justify-center flex-col items-center">
+    {selectedImageUrl ? (
+      <Image width={100} height={100}
+        src={selectedImageUrl}
+        alt="Selected Profile Picture"
+        className="rounded-full object-cover w-24 h-24"
+      />
+    ) : (
+      <div className=" text-6xl">
+
+        <FaUser/>
+        </div>
+    )}
+    <input
+      required
+      type="file"
+      id="file"
+      name="profilePicture"
+      className="rounded-xl flex justify-center p-2 w-full"
+      onChange={handleFileInputChange}
+    />
+  </div>
+</div>
+
         </div>
         <div className="space-y-1">
           <div className="text-base">Name</div>
