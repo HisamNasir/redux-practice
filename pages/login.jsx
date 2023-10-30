@@ -4,12 +4,16 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import Link from "next/link";
 import DarkModButton from "@/components/DarkModButton";
+import { useDispatch } from 'react-redux';
+import { setUser } from "@/src/store/features/authSlice"; // Import your Redux action
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
-  const router = useRouter();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -24,6 +28,10 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+
+      // Dispatch the setUser action to set the user in Redux
+      dispatch(setUser({ email, /* Add other user info if needed */ }));
+
       router.push("/");
     } catch (error) {
       setErr(true);

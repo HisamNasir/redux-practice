@@ -1,37 +1,43 @@
-import { decremented, incremented } from "@/src/store/features/counterSlice";
 import Head from "next/head";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { useRouter } from "next/router";
-import { useAuth } from "../context/AuthContext";
+import { setUser, clearUser } from "@/src/store/features/authSlice";
+import HomePage from "./homepage";
 import Login from "./login";
 import Register from "./register";
-import HomePage from "./homepage";
-import CartPage from "./cartpage";
-import Settings from "./settingspage";
-import OrderHistory from "./orderhistorypage";
-export default function Home() {
-  const { value } = useSelector((state) => state.counter);
+import { auth } from "@/firebase";
+import ProtectedPage from "@/components/ProtectedPage";
+
+const Home = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useContext(AuthContext);
-  const router = useRouter();
+  const currentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    if (!currentUser) {
-      router.push("/login");
-    }
-  }, [currentUser, router]);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(setUser(user));
+      } if(!user) {
+        dispatch(clearUser());
+
+          Router.push("/login");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch]);
+
   return (
     <>
       <Head>
         <title>Redux</title>
       </Head>
       <main>
-      <>
-      <main id="__next">{currentUser ? <HomePage/> : null}</main>
-    </>
+
+            <HomePage />
+            
       </main>
     </>
   );
-}
+};
+
+export default Home;

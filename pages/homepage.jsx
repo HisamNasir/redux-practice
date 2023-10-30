@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import Layout from "@/components/Layout";
 import CartFooter from "@/components/CartFooter";
 import ProductSearchBar from "@/components/ProductSearchBar"; 
+import ProtectedPage from "@/components/ProtectedPage";
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
@@ -20,7 +21,7 @@ const HomePage = () => {
     setSearchResults(results);
   };
   return (
-    <div>
+    <ProtectedPage>
       <Layout>
         <div className="mb-4">
         </div>
@@ -41,7 +42,7 @@ const HomePage = () => {
         </div>
       </Layout>
       <CartFooter />
-    </div>
+    </ProtectedPage>
   );
 };
 

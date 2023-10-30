@@ -11,6 +11,7 @@ const ProductCard = ({ product }) => {
 
   // Save the selected product to local storage
   const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+  
   storedCart.push(product);
   localStorage.setItem('cart', JSON.stringify(storedCart));
 

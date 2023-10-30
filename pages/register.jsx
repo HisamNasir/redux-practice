@@ -120,7 +120,7 @@ return (
               type="file"
               id="file"
               name="profilePicture"
-              className="rounded-md p-2 w-full"
+              className="rounded-xl p-2 w-full"
               onChange={(e) => {
                 const file = e.target.files[0];
                 if (file) {
@@ -143,7 +143,7 @@ return (
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="focus:outline focus:outline-1 focus:outline-sky-500 rounded-md p-2 w-full"
+              className="focus:outline focus:outline-1 focus:outline-sky-500 rounded-xl p-2 w-full"
             />
           </div>
         </div>
@@ -159,7 +159,7 @@ return (
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="focus:outline focus:outline-1 focus:outline-sky-500 rounded-md p-2 w-full"
+              className="focus:outline focus:outline-1 focus:outline-sky-500 rounded-xl p-2 w-full"
             />
           </div>
         </div>
@@ -174,7 +174,7 @@ return (
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="focus:outline focus:outline-1 focus:outline-sky-500 rounded-md p-2 w-full"
+              className="focus:outline focus:outline-1 focus:outline-sky-500 rounded-xl p-2 w-full"
             />
           </div>
         </div>
@@ -192,7 +192,7 @@ return (
             <div>
               <button
                 onClick={handleSubmit}
-                className="w-full rounded-md p-2 text-center bg-sky-600 text-white hover-bg-sky-700 duration-500 transition-colors"
+                className="w-full rounded-xl p-2 text-center bg-sky-600 text-white hover-bg-sky-700 duration-500 transition-colors"
               >
                 Sign up
               </button>
