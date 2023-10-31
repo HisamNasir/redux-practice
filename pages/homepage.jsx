@@ -6,7 +6,6 @@ import { addToCart } from "@/src/store/features/cartSlice";
 import Layout from "@/components/Layout";
 import CartFooter from "@/components/CartFooter";
 import ProductSearchBar from "@/components/ProductSearchBar"; 
-import ProtectedPage from "@/components/ProtectedPage";
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
