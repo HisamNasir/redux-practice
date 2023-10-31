@@ -1,68 +1,53 @@
-import React from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectProducts } from "@/src/store/features/productSlice";
-import { updateCurrentUser } from "firebase/auth";
-import { selectUser } from "@/src/store/features/authSlice";
-import Layout from "@/components/Layout";
-import ProtectedPage from "@/components/ProtectedPage";
+import { db } from "@/firebase"; // Make sure you import the Firebase configuration correctly
 
-const OrderHistoryItem = ({ productId }) => {
- const product = useSelector((state) => selectProducts(state, productId));
+const OrderHistoryPage = () => {
+  const currentUser = useSelector((state) => state.auth.user);
+  const [orderHistory, setOrderHistory] = useState([]);
 
-  const renderStars = () => {
-    const rating = product.rating.rate;
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      const starClass = rating >= i ? "text-amber-500" : "text-gray-300";
-      stars.push(
-        <span key={i} className={`text-xl ${starClass} pr-[1px]`}>
-          ★
-        </span>
-      );
+  useEffect(() => {
+    if (currentUser) {
+      const userId = currentUser.uid;
+      const purchaseHistoryRef = collection(db, `users/${userId}/purchaseHistory`); // Use 'collection' from Firebase Firestore
+
+      // Initialize an array to store product names
+      const productNames = [];
+
+      // Query the purchase history collection
+      getDocs(purchaseHistoryRef).then((querySnapshot) => { // Use 'getDocs' to fetch documents
+        querySnapshot.forEach((doc) => {
+          const purchaseData = doc.data();
+          const productId = purchaseData.productId;
+
+          // Query the products collection for each productId
+          const productDocRef = doc(db, "products", productId); // Reference the product document
+          getDoc(productDocRef).then((productDoc) => { // Use 'getDoc' to fetch the document
+            if (productDoc.exists()) {
+              const productName = productDoc.data().name;
+              productNames.push(productName);
+            } else {
+              productNames.push("Product Not Found");
+            }
+
+            // Update state with the product names
+            setOrderHistory(productNames);
+          });
+        });
+      });
     }
-    return stars;
-  };
-  const currentUser = useSelector(selectUser);
-  console.log('currentUser:', currentUser);
+  }, [currentUser]);
 
   return (
-    <ProtectedPage>
-
-    
-    <Layout>
-    <li>
-      {product ? (
-        <div className="flex my-4 gap-2 mx-auto w-full bg-white dark:bg-gray-800  rounded-lg shadow-lg p-3">
-          <div className="h-24 w-24 p-4 rounded-xl bg-white flex items-center justify-center">
-            <div className="flex flex-col h-32 w-32 items-center justify-center">
-              <Image
-                width={200}
-                height={200}
-                className=""
-                src={product.image}
-                alt="Product Image"
-              />
-            </div>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold">{product.title}</h3>
-            <p>
-              <span className="text-sm">Price:</span> ${product.price}
-            </p>
-            <p>
-              {renderStars()}{" "}
-              <span className="text-sm">{product.rating.count} reviews</span>
-            </p>
-          </div>
-        </div>
-      ) : (
-        <p>Loading product details...</p>
-      )}
-    </li>
-
-    </Layout></ProtectedPage>
+    <div>
+      <h1>Order History</h1>
+      <ul>
+        {orderHistory.map((productName, index) => (
+          <li key={index}>{productName}</li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
-export default OrderHistoryItem;
+export default OrderHistoryPage;

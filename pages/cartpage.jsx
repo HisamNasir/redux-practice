@@ -9,6 +9,7 @@ import { getFirestore, doc, collection, addDoc } from "firebase/firestore";
 import ProtectedPage from "@/components/ProtectedPage";
 
 const CartPage = () => {
+  const user = useSelector(selectUser);
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isPayButtonEnabled, setIsPayButtonEnabled] = useState(false);
