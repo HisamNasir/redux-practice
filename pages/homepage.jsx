@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/src/store/features/cartSlice";
 import Layout from "@/components/Layout";
 import CartFooter from "@/components/CartFooter";
-import ProductSearchBar from "@/components/ProductSearchBar"; 
+import ProductSearchBar from "@/components/ProductSearchBar"; // Import the search bar component
+
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
