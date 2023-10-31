@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/src/store/features/cartSlice";
 import { FaCartArrowDown } from "react-icons/fa";
 import Image from "next/image";
+import { Link } from "react-router-dom";
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
@@ -34,6 +35,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="mx-auto w-full flex flex-col justify-between bg-white dark:bg-gray-800  rounded-lg shadow-lg p-3">
+      <a href={`/product/${product.id}`}>
       <div className="h-60 flex  justify-center bg-white rounded-t-lg items-center">
 
         <Image width={200} height={200} className=" h-full w-auto m-2 rounded-t-lg" src={product.image} alt='Product Image' />
@@ -58,7 +60,7 @@ const ProductCard = ({ product }) => {
         >
           <FaCartArrowDown/>Add to Cart
         </button>
-      </div>
+      </div></a>
     </div>
   );
 };

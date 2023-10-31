@@ -24,15 +24,15 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar h-[62px] fixed w-full font-semibold bg-grey-800 z-10  shadow-lg dark:shadow-gray-900 dark:bg-gray-800 bg-sky-400">
+    <div className="navbar h-[62px] fixed w-full font-semibold bg-grey-800 z-10 dark:shadow-gray-900 shadow-sky-500 dark:bg-gray-800 bg-sky-400">
      <div className="flex justify-center items-center h-full min-w-max">
      <div className="gap-4 justify-between px-4 container flex items-center h-full">
         <Link href='/' className="flex gap-2 items-center text-3xl ">
-          <span className=" text-white"><FaShip/></span> 
+          <span className=" text-blue-700"><FaShip/></span> <div>Logo</div>
         </Link>
         <div onClick={toggleDropdown} className="relative flex gap-2 items-center">
           <div>
-            <Image width={200} height={200} className="h-8 w-8 container rounded-full object-cover" src={currentUser.photoURL} alt="" />
+            <Image src={currentUser.photoURL} width={200} height={200} className="h-8 w-8 container rounded-full object-cover"  alt="" />
           </div>
           <span>{currentUser.displayName}</span>
           {isDropdownVisible && (

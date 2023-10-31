@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import React, { useContext, useState } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
 const CartFooter = () => {
   const cartCount = useSelector(state => state.cart.cartItems.length);

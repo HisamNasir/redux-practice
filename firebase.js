@@ -6,19 +6,19 @@ import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyBim2SLtTFBHgZEzJK9u0x8_nckVZ2E3gs",
-  
-    authDomain: "redux-onlinestore.firebaseapp.com",
-  
-    projectId: "redux-onlinestore",
-  
-    storageBucket: "redux-onlinestore.appspot.com",
-  
-    messagingSenderId: "184090922353",
-  
-    appId: "1:184090922353:web:b649d9589b67385e36fad0"
-  
-  };
+  apiKey: "AIzaSyBim2SLtTFBHgZEzJK9u0x8_nckVZ2E3gs",
+
+  authDomain: "redux-onlinestore.firebaseapp.com",
+
+  projectId: "redux-onlinestore",
+
+  storageBucket: "redux-onlinestore.appspot.com",
+
+  messagingSenderId: "184090922353",
+
+  appId: "1:184090922353:web:b649d9589b67385e36fad0"
+
+};
   
 
 export const app = initializeApp(firebaseConfig);
