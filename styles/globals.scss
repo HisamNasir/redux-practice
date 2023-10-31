@@ -5,7 +5,7 @@
 @tailwind utilities;
 @layer base{
   body {
-      @apply dark:bg-sky-950 bg-white
+      @apply dark:bg-gray-700 bg-slate-300
   }
 }
 // css restore
