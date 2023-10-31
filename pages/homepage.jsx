@@ -2,14 +2,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "@/components/ProductCard";
 import { useDispatch } from "react-redux";
+import { addToCart } from "@/src/store/features/cartSlice";
 import Layout from "@/components/Layout";
 import CartFooter from "@/components/CartFooter";
+<<<<<<< HEAD
 <<<<<<< HEAD
 import ProductSearchBar from "@/components/ProductSearchBar"; 
 import ProtectedPage from "@/components/ProtectedPage";
 =======
 
 >>>>>>> parent of 18f28f6 (done)
+=======
+import ProductSearchBar from "@/components/ProductSearchBar"; // Import the search bar component
+
+>>>>>>> parent of 8173487 (done)
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
@@ -29,6 +35,7 @@ const HomePage = () => {
       <Layout>
 <<<<<<< HEAD
         <div className="mb-4">
+
         </div>
 =======
 >>>>>>> parent of 18f28f6 (done)
