@@ -25,15 +25,12 @@ const ProductDetailPage = () => {
   }, [productId]);
   
   const handleAddToCart = () => {
-    // Dispatch addToCart action to update Redux store
     dispatch(addToCart(product));
   
-    // Save the selected product to local storage
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     storedCart.push(product);
     localStorage.setItem('cart', JSON.stringify(storedCart));
   
-    // Log the selected product for debugging
     console.log('Added to cart:', product);
   };
   
