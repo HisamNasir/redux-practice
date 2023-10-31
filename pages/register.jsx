@@ -63,6 +63,10 @@ const Register = () => {
               photoURL: downloadURL,
             });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 29a7283 (done)
             const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
             await addDoc(purchaseHistoryRef, {
               purchaseDate: Timestamp.now(),
@@ -75,6 +79,7 @@ const Register = () => {
                 text: "",
               },
             });
+<<<<<<< HEAD
             setShowSuccessMessage(true);
             setName("");
             setEmail("");
@@ -85,6 +90,11 @@ const Register = () => {
               setShowSuccessMessage(false);
               router.push("/");
             }, 3000);
+=======
+
+
+            router.push("/");
+>>>>>>> parent of 29a7283 (done)
           } catch (err) {
             console.error(err);
             setErr(true);

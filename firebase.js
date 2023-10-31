@@ -21,6 +21,18 @@ const firebaseConfig = {
   };
   
 
+// Singleton pattern to ensure Firebase is initialized only once
+// let firebaseApp;
+
+// export const getFirebaseApp = () => {
+//   if (!firebaseApp) {
+//     firebaseApp = initializeApp(firebaseConfig);
+//   }
+//   return firebaseApp;
+// };
+
+
+// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const storage = getStorage();

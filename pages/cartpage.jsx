@@ -4,7 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "@/src/store/features/cartSlice";
 import CartFooter from "@/components/CartFooter";
+<<<<<<< HEAD
 import { selectUser } from "@/src/store/features/authSlice";
+=======
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext"; // Import your AuthContext
+>>>>>>> parent of 29a7283 (done)
 import { getFirestore, doc, collection, addDoc } from "firebase/firestore";
 import ProtectedPage from "@/components/ProtectedPage";
 
@@ -22,51 +27,89 @@ const CartPage = () => {
   };
 
   const handleDelete = (index) => {
+    // Remove the product at the specified index from the cartItems state and local storage
     const updatedCart = [...cartItems];
     updatedCart.splice(index, 1);
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
+<<<<<<< HEAD
 
+=======
+  // Retrieve locally stored products
+>>>>>>> parent of 29a7283 (done)
   useEffect(() => {
     const locallyStoredCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(locallyStoredCart);
   }, []);
 
   const handleCheckboxChange = (index) => {
+    // Toggle the selected state of the item at the specified index
     const updatedSelectedItems = [...selectedItems];
     updatedSelectedItems[index] = !updatedSelectedItems[index];
     setSelectedItems(updatedSelectedItems);
 
+<<<<<<< HEAD
+=======
+    // Check if any item is selected to enable/disable "Pay" button
+>>>>>>> parent of 29a7283 (done)
     setIsPayButtonEnabled(updatedSelectedItems.some((selected) => selected));
   };
 
   const handlePay = async () => {
+<<<<<<< HEAD
     const productsToPay =
       JSON.parse(localStorage.getItem("selectedForPayment")) || [];
 
+=======
+    // Retrieve the selected product IDs from local storage
+    const productsToPay = JSON.parse(localStorage.getItem('selectedForPayment')) || [];
+
+    // Access Firestore
+>>>>>>> parent of 29a7283 (done)
     const firestore = getFirestore();
 
     if (currentUser) {
+      // Access the user's UID (user ID)
       const userId = currentUser.uid;
 
+<<<<<<< HEAD
       const userDocRef = doc(firestore, "users", userId);
 
       const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
 
+=======
+      // Access the user's document under the "users" collection
+      const userDocRef = doc(firestore, "users", userId);
+
+      // Access the "purchaseHistory" subcollection within the user's document
+      const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
+
+      // Add each selected product ID to the "purchaseHistory" collection
+>>>>>>> parent of 29a7283 (done)
       for (const product of productsToPay) {
         await addDoc(purchaseHistoryRef, {
           productId: product.id,
+          // Add other information related to the purchase, e.g., purchaseDate, quantity, etc.
         });
       }
 
+<<<<<<< HEAD
       alert("Payment Done");
     } else {
       alert("User is not authenticated.");
+=======
+      // Implement the payment process as needed
+      alert('Payment Done');
+    } else {
+      // Handle the case where the user is not authenticated
+      alert('User is not authenticated.');
+>>>>>>> parent of 29a7283 (done)
     }
   };
 
   const calculateTotalPrice = () => {
+    // Calculate the total price based on selected items
     const totalPrice = cartItems.reduce(
       (total, item, index) =>
         selectedItems[index] ? total + item.price : total,

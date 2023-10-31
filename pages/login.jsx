@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import Link from "next/link";
+import Layout from "@/components/Layout";
 import DarkModButton from "@/components/DarkModButton";
 import { useDispatch } from 'react-redux';
 import { setUser } from "@/src/store/features/authSlice"; // Import your Redux action
@@ -78,8 +79,13 @@ const Login = () => {
         </div>
 
         <div>
+<<<<<<< HEAD
           <p className="text-sky-500">
             {"Don't have an account "}
+=======
+          <p className="text-slate-500">
+            Don't have an account{" "}
+>>>>>>> parent of 29a7283 (done)
             <Link href="/register" className="hover:text-black transition-colors delay-75">
               Signup
             </Link>
