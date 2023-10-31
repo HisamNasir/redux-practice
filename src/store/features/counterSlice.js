@@ -1,0 +1,18 @@
+// Import the necessary function from the Redux toolkit library.
+const { createSlice } = require("@reduxjs/toolkit");
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: {
+    value: 0,
+  },
+  reducers: {
+    incremented: (state) => {
+      state.value += 1;
+    },
+    decremented: (state) => {
+      state.value -= 1;
+    },
+  },
+});
+export const { incremented, decremented } = counterSlice.actions;
+export default counterSlice.reducer;

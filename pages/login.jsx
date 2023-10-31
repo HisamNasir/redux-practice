@@ -37,7 +37,7 @@ const Login = () => {
       </div>
       <form
         onSubmit={handleSubmit}
-        className="bg-slate-200 dark:bg-slate-900 p-5 text-sm w-full max-w-lg rounded-xl space-y-4"
+        className="bg-sky-200 dark:bg-sky-900 p-5 text-sm w-full max-w-lg rounded-xl space-y-4"
       >
         <h1 className="text-lg font-bold">Login</h1>
         <div className="space-y-1">
@@ -48,7 +48,7 @@ const Login = () => {
               placeholder="email"
               id="Email"
               name="email"
-              className="focus:outline focus:outline-1 focus:outline-slate-500 rounded-md p-2 w-full"
+              className="focus:outline focus:outline-1 focus:outline-sky-500 rounded-md p-2 w-full"
               value={email}
               onChange={handleEmailChange}
             />
@@ -62,7 +62,7 @@ const Login = () => {
               placeholder="Password"
               id="password"
               name="password"
-              className="focus:outline focus:outline-1 focus:outline-slate-500 rounded-md p-2 w-full"
+              className="focus:outline focus:outline-1 focus:outline-sky-500 rounded-md p-2 w-full"
               value={password}
               onChange={handlePasswordChange}
             />
@@ -70,7 +70,7 @@ const Login = () => {
         </div>
 
         <div>
-          <p className="text-slate-500">
+          <p className="text-sky-500">
             {"Don't have an account "}
             <Link href="/register" className="hover:text-black transition-colors delay-75">
               Signup
@@ -81,7 +81,7 @@ const Login = () => {
           {err && <span>Something went wrong</span>}
           <button
             type="submit"
-            className="w-full rounded-md p-2 text-center duration-500 transition-colors"
+            className="w-full bg-sky-600 text-white hover-bg-sky-700 rounded-md p-2 text-center duration-500 transition-colors"
           >
             Login
           </button>

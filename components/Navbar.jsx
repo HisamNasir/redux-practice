@@ -24,11 +24,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar h-[62px] fixed w-full font-semibold bg-grey-800 z-10  shadow-lg dark:shadow-gray-900 shadow-slate-500 dark:bg-gray-800 bg-slate-400">
+    <div className="navbar h-[62px] fixed w-full font-semibold bg-grey-800 z-10  shadow-lg dark:shadow-gray-900 dark:bg-gray-800 bg-sky-400">
      <div className="flex justify-center items-center h-full min-w-max">
      <div className="gap-4 justify-between px-4 container flex items-center h-full">
         <Link href='/' className="flex gap-2 items-center text-3xl ">
-          <span className=" text-amber-700"><FaShip/></span> <div>Logo</div>
+          <span className=" text-white"><FaShip/></span> 
         </Link>
         <div onClick={toggleDropdown} className="relative flex gap-2 items-center">
           <div>
@@ -36,7 +36,7 @@ const Navbar = () => {
           </div>
           <span>{currentUser.displayName}</span>
           {isDropdownVisible && (
-            <div className="absolute top-12 rounded-xl w-40 right-1 justify-center flex dark:bg-gray-800 bg-slate-200 p-2 shadow-md">
+            <div className="absolute top-12 rounded-xl w-40 right-1 justify-center flex dark:bg-gray-800 bg-sky-200 p-2 shadow-md">
               <ul className=" min-w-max w-full space-y-1 flex flex-col justify-center text-center">
                 <li>
                   <Link className="justify-center p-2 flex bg-black bg-opacity-10 hover:bg-opacity-20  text-sm items-center md:text-sm rounded-lg gap-2" href="/orderhistorypage"><FaHistory/>OrderHistory</Link>
