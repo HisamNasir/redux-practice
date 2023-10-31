@@ -10,33 +10,40 @@ import {
 import { AuthContext } from "../context/AuthContext";
 import OrderHistoryItem from "@/components/OrderHistoryItem";
 import Layout from "@/components/Layout";
+
 const OrderHistory = () => {
   const { currentUser } = useContext(AuthContext);
   const [orderHistory, setOrderHistory] = useState([]);
+
   useEffect(() => {
     if (currentUser) {
       const fetchOrderHistory = async () => {
-        const firestore = getFirestore();
-        const userId = currentUser.uid;
-        const userDocRef = doc(firestore, "users", userId);
-        const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
-        const purchaseHistoryQuery = query(purchaseHistoryRef);
-        const orderHistorySnapshot = await getDocs(purchaseHistoryQuery);
-        const orderHistoryData = [];
-        for (const docRef of orderHistorySnapshot.docs) {
-          const productId = docRef.data().productId;
-          orderHistoryData.push(productId);
+        try {
+          const firestore = getFirestore();
+          const userId = currentUser.uid;
+          const userDocRef = doc(firestore, "users", userId);
+          const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
+          const purchaseHistoryQuery = query(purchaseHistoryRef);
+          const orderHistorySnapshot = await getDocs(purchaseHistoryQuery);
+          const orderHistoryData = [];
+          for (const docRef of orderHistorySnapshot.docs) {
+            const productId = docRef.data().productId;
+            orderHistoryData.push(productId);
+          }
+          setOrderHistory(orderHistoryData);
+        } catch (error) {
+          console.error("Error fetching order history:", error);
         }
-        setOrderHistory(orderHistoryData);
       };
       fetchOrderHistory();
     }
   }, [currentUser]);
+
   return (
     <div>
       <Layout>
-        <div>
-          <h1>Order History</h1>
+        <div className="bg-gray-100 space-y-2 rounded-lg dark:bg-gray-900 p-4">
+          <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Order History</h1>
           <ul>
             {orderHistory.map((productId) => (
               <OrderHistoryItem key={productId} productId={productId} />
