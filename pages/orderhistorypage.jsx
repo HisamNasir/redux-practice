@@ -10,8 +10,8 @@ import {
 import { AuthContext } from "../context/AuthContext";
 import OrderHistoryItem from "@/components/OrderHistoryItem";
 import Layout from "@/components/Layout";
-import { useDispatch, useSelector } from 'react-redux';
-import { onAuthStateChanged } from 'firebase/auth'; // Import onAuthStateChanged from the Firebase auth module
+import { useDispatch, useSelector } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
 import { setCurrentUser } from "@/src/store/features/authSlice";
 import { auth } from "@/firebase";
 
@@ -29,10 +29,6 @@ const OrderHistory = () => {
       unsub();
     };
   }, [dispatch]);
-
-
-
-
   useEffect(() => {
     if (currentUser) {
       const fetchOrderHistory = async () => {
@@ -61,7 +57,9 @@ const OrderHistory = () => {
     <div>
       <Layout>
         <div className="bg-gray-100 space-y-2 rounded-lg dark:bg-gray-900 p-4">
-          <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Order History</h1>
+          <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+            Order History
+          </h1>
           <ul>
             {orderHistory.map((productId) => (
               <OrderHistoryItem key={productId} productId={productId} />

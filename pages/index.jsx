@@ -10,15 +10,11 @@ const Home = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
   const router = useRouter();
-
-  // Use onAuthStateChanged to listen for changes in authentication state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in
         dispatch(setCurrentUser(user));
       } else {
-        // No user is signed in, redirect to login
         router.push("/login");
       }
     });
@@ -26,11 +22,7 @@ const Home = () => {
     return () => unsubscribe();
   }, [dispatch, router]);
 
-  return (
-    <div>
-      {currentUser ? <HomePage /> : null}
-    </div>
-  );
+  return <div>{currentUser ? <HomePage /> : null}</div>;
 };
 
 export default Home;

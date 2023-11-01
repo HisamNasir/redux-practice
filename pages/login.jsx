@@ -72,7 +72,10 @@ const Login = () => {
         <div>
           <p className="text-sky-500">
             {"Don't have an account "}
-            <Link href="/register" className="hover:text-black transition-colors delay-75">
+            <Link
+              href="/register"
+              className="hover:text-black transition-colors delay-75"
+            >
               Signup
             </Link>
           </p>
