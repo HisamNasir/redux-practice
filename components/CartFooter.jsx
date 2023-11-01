@@ -12,12 +12,7 @@ const CartFooter = () => {
       <div className='flex h-full items-center justify-between '>
       <p className='hidden md:flex items-center'>Total Items in cart: <span className=' text-sky-500 text-xl p-2'>{cartCount}</span></p>
       <p>Total Price:<span className=' text-sky-500 text-xl p-2'> ${calculateTotalPrice()}</span></p>
-      <a href={"/cartpage"} >
-      <button className=" font-semibold  tracking-wide shadow-md shadow-black p-2 flex bg-sky-500  hover:bg-opacity-80  text-sm items-center md:text-sm rounded-lg gap-2">
-        Checkout
-      </button>
 
-      </a>
       </div>
     </div>
   );

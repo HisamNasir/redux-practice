@@ -6,11 +6,11 @@ import { ThemeProvider } from "next-themes";
 export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
-      <AuthContextProvider>
+      {/* <AuthContextProvider> */}
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>
-      </AuthContextProvider>
+      {/* </AuthContextProvider> */}
     </ThemeProvider>
   );
 }

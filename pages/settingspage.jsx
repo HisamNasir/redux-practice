@@ -1,32 +1,48 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentUser } from "@/src/store/features/authSlice";
 import DarkModButton from "@/components/DarkModButton";
 import Layout from "@/components/Layout";
-import { updateProfile } from "firebase/auth";
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  updateProfile,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/auth";
 import { auth, storage } from "../firebase";
-import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+
 const Settings = () => {
-  const { currentUser } = useContext(AuthContext);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const dispatch = useDispatch();
+
   const [newName, setNewName] = useState(currentUser.displayName);
   const [newProfilePicture, setNewProfilePicture] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const handleUpdateProfile = async () => {
     setLoading(true);
+
     try {
       await updateProfile(auth.currentUser, {
         displayName: newName,
       });
+
       if (newProfilePicture) {
         const oldImageRef = ref(storage, `${currentUser.uid}`);
         await deleteObject(oldImageRef);
+
         const newImageRef = ref(storage, currentUser.uid);
         await uploadBytesResumable(newImageRef, newProfilePicture);
         const downloadURL = await getDownloadURL(newImageRef);
+
         await updateProfile(auth.currentUser, {
           photoURL: downloadURL,
         });
+
+        // Update the user in Redux store
+        dispatch(setCurrentUser({ ...currentUser, displayName: newName, photoURL: downloadURL }));
       }
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -34,6 +50,7 @@ const Settings = () => {
       setLoading(false);
     }
   };
+
   return (
     <Layout>
       <div className="rounded-lg min-w-min space-y-4 bg-gray-100 dark:bg-gray-900 m-2 p-4">

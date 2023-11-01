@@ -1,21 +1,24 @@
-import { decremented, incremented } from "@/src/store/features/counterSlice";
-import Head from "next/head";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
-import HomePage from "./homepage";
+import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/firebase";
+import { useRouter } from "next/router";
 import { setCurrentUser } from "@/src/store/features/authSlice";
-export default function Home() {
-  const { currentUser } = useSelector((state) => state.auth);
+import HomePage from "./homepage";
+import { auth } from "@/firebase";
+
+const Home = () => {
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const router = useRouter();
+
+  // Use onAuthStateChanged to listen for changes in authentication state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        // User is signed in
         dispatch(setCurrentUser(user));
       } else {
+        // No user is signed in, redirect to login
         router.push("/login");
       }
     });
@@ -24,15 +27,10 @@ export default function Home() {
   }, [dispatch, router]);
 
   return (
-    <>
-      <Head>
-        <title>Redux</title>
-      </Head>
-      <main>
-      <div>
+    <div>
       {currentUser ? <HomePage /> : null}
     </div>
-      </main>
-    </>
   );
-}
+};
+
+export default Home;

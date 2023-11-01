@@ -8,9 +8,12 @@ import { db } from '../firebase';
 import DarkModButton from './DarkModButton';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useDispatch, useSelector } from "react-redux";
+import { signOutUser } from "@/src/store/features/authSlice";
 
 const Navbar = () => {
-  const { currentUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const toggleDropdown = () => {
