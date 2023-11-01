@@ -2,23 +2,21 @@
 import Layout from '@/components/Layout';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-// import PaymentPage from './PaymentPage';
-// import { useSelector, useDispatch } from "react-redux";
-// import { addToCart } from "@/src/store/features/cartSlice";
-// import CartFooter from "@/components/CartFooter";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { getFirestore, doc, collection, addDoc } from "firebase/firestore";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser, clearCurrentUse } from '@/src/store/features/authSlice';
+
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isPayButtonEnabled, setIsPayButtonEnabled] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
-  const handlePaymentSuccess = (updatedSelectedItems) => {
-    setPaymentSuccess(true);
-  };
-  const { currentUser } = useContext(AuthContext);
+
+  const { currentUser } = useSelector((state) => state.auth); // Access the current user from the Redux store
+  const dispatch = useDispatch();
 
   const handleDelete = (index) => {
     const updatedCart = [...cartItems];
@@ -26,23 +24,27 @@ const CartPage = () => {
     setCartItems(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
+
   useEffect(() => {
     const locallyStoredCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartItems(locallyStoredCart);
   }, []);
+
   const handleCheckboxChange = (index) => {
     const updatedSelectedItems = [...selectedItems];
     updatedSelectedItems[index] = !updatedSelectedItems[index];
     setSelectedItems(updatedSelectedItems);
     setIsPayButtonEnabled(updatedSelectedItems.some((selected) => selected));
   };
+
   const handlePay = async () => {
     const productsToPay = JSON.parse(localStorage.getItem('selectedForPayment')) || [];
     const firestore = getFirestore();
+
     if (currentUser) {
       const userId = currentUser.uid;
-      const userDocRef = doc(firestore, "users", userId);
-      const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
+      const userDocRef = doc(firestore, 'users', userId);
+      const purchaseHistoryRef = collection(userDocRef, 'purchaseHistory');
       for (const product of productsToPay) {
         await addDoc(purchaseHistoryRef, {
           productId: product.id,

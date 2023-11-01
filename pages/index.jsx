@@ -1,36 +1,37 @@
 import { decremented, incremented } from "@/src/store/features/counterSlice";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useAuth } from "../context/AuthContext";
-import Login from "./login";
-import Register from "./register";
 import HomePage from "./homepage";
-import CartPage from "./cartpage";
-import Settings from "./settingspage";
-import OrderHistory from "./orderhistorypage";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebase";
+import { setCurrentUser } from "@/src/store/features/authSlice";
 export default function Home() {
-  const { value } = useSelector((state) => state.counter);
+  const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const { currentUser } = useContext(AuthContext);
   const router = useRouter();
-
   useEffect(() => {
-    if (!currentUser) {
-      router.push("/login");
-    }
-  }, [currentUser, router]);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setCurrentUser(user));
+      } else {
+        router.push("/login");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch, router]);
+
   return (
     <>
       <Head>
         <title>Redux</title>
       </Head>
       <main>
-      <>
-      <main id="__next">{currentUser ? <HomePage/> : null}</main>
-    </>
+      <div>
+      {currentUser ? <HomePage /> : null}
+    </div>
       </main>
     </>
   );

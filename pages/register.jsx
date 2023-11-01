@@ -65,15 +65,15 @@ const Register = () => {
 
             const purchaseHistoryRef = collection(userDocRef, "purchaseHistory");
             await addDoc(purchaseHistoryRef, {
-              purchaseDate: Timestamp.now(),
-              productId: "",
-              quantity: "",
-              productPrice: "",
-              totalPrice: "",
-              userReview: {
-                stars: "",
-                text: "",
-              },
+              // purchaseDate: Timestamp.now(),
+              // productId: "",
+              // quantity: "",
+              // productPrice: "",
+              // totalPrice: "",
+              // userReview: {
+              //   stars: "",
+              //   text: "",
+              // },
             });
             setShowSuccessMessage(true);
             setName("");

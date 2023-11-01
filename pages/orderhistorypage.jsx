@@ -10,10 +10,28 @@ import {
 import { AuthContext } from "../context/AuthContext";
 import OrderHistoryItem from "@/components/OrderHistoryItem";
 import Layout from "@/components/Layout";
+import { useDispatch, useSelector } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth'; // Import onAuthStateChanged from the Firebase auth module
+import { setCurrentUser } from "@/src/store/features/authSlice";
+import { auth } from "@/firebase";
 
 const OrderHistory = () => {
-  const { currentUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const [orderHistory, setOrderHistory] = useState([]);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      dispatch(setCurrentUser(user));
+    });
+
+    return () => {
+      unsub();
+    };
+  }, [dispatch]);
+
+
+
 
   useEffect(() => {
     if (currentUser) {

@@ -49,13 +49,13 @@ const ProductCard = ({ product }) => {
         <span className=" text-sm">{product.rating.count} reviews</span>
       </p>
       </div>
+      </div></a>
         <button
           className=" font-semibold  tracking-wide shadow-md shadow-black p-2 flex bg-sky-600 text-white hover-bg-sky-700  hover:bg-opacity-80  text-sm items-center md:text-sm rounded-lg gap-2"
           onClick={handleAddToCart}
         >
           <FaCartArrowDown/>Add to Cart
         </button>
-      </div></a>
     </div>
   );
 };
