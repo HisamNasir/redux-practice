@@ -1,4 +1,3 @@
-// Import the necessary function from the Redux toolkit library.
 const { createSlice } = require("@reduxjs/toolkit");
 const counterSlice = createSlice({
   name: "counter",

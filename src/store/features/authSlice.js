@@ -1,10 +1,9 @@
-// authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    currentUser: null, // You can initialize it as null
+    currentUser: null, 
   },
   reducers: {
     setCurrentUser: (state, action) => {

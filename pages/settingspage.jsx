@@ -40,8 +40,6 @@ const Settings = () => {
         await updateProfile(auth.currentUser, {
           photoURL: downloadURL,
         });
-
-        // Update the user in Redux store
         dispatch(setCurrentUser({ ...currentUser, displayName: newName, photoURL: downloadURL }));
       }
     } catch (error) {

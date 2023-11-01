@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 const productSlice = createSlice({
-  name: 'products',
-  initialState: [], // Initialize with an empty array
+  name: "products",
+  initialState: [],
   reducers: {
     setProducts: (state, action) => {
       return action.payload;
